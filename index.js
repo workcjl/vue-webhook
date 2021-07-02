@@ -20,7 +20,6 @@ router.post('/webhook', (ctx) => {
     const event = ctx.request.headers['x-github-event']
     const signature = ctx.request.headers['x-hub-signature']
     const delivery = ctx.request.headers['x-github-delivery']
-    console.log('dddd=>', ctx.request.headers)
     if (sign(body) !== signature) ctx.body = 'Not Allowed'
     ctx.set('Content-Type', 'application/json')
     ctx.body = {
