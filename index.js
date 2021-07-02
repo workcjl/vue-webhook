@@ -7,7 +7,16 @@ const router = new Router()
 const PORT = 4000
 
 router.post('/webhook', (ctx) => {
-  ctx.body = '成功案例！'
+  const buffers = []
+  ctx.req.on('data', (buffer) => {
+    buffers.push(buffer)
+  })
+  ctx.req.on('end', () => {
+    const body = Buffer.concat(buffers)
+    console.log('body=>', body)
+  })
+  console.log('dddd=>', ctx.request.headers)
+  ctx.body = 'ddddd'
 })
 
 app.use(cors())
