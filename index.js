@@ -18,22 +18,22 @@ router.post('/webhook', (ctx) => {
   ctx.req.on('end', () => {
     const body = Buffer.concat(buffers)
     console.log('body=>', body)
+    const event = ctx.request.headers['x-github-event']
+    const signature = ctx.request.headers['x-hub-signature']
+    const delivery = ctx.request.headers['x-github-delivery']
+    console.log('dddd=>', ctx.request.headers)
+    if (sign(body) !== signature) ctx.body = 'Not Allowed'
+    ctx.set('Content-Type', 'application/json')
+    ctx.body = {
+      ok: true
+    }
+    if (event === 'push') {
+      const content = JSON.parse(body)
+      console.log('content=>', content)
+      // spawn('sh')
+      console.log('true')
+    }
   })
-  const event = ctx.request.headers['x-github-event']
-  const signature = ctx.request.headers['x-hub-signature']
-  const delivery = ctx.request.headers['x-github-delivery']
-  console.log('dddd=>', ctx.request.headers)
-  if (sign(body) !== signature) ctx.body = 'Not Allowed'
-  ctx.set('Content-Type', 'application/json')
-  ctx.body = {
-    ok: true
-  }
-  if (event === 'push') {
-    const content = JSON.parse(body)
-    console.log('content=>', content)
-    // spawn('sh')
-    console.log('true')
-  }
 })
 
 app.use(cors())
