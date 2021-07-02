@@ -8,7 +8,7 @@ cd $WORK_DIR
 
 # 拉取新代码
 echo "拉取新代码"
-git pull origin master
+git pull
 
 # 构建新镜像
 echo "构建新镜像"
