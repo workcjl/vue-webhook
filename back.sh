@@ -8,7 +8,7 @@ cd $WORK_DIR
 
 # 清除老代码
 echo "清除老代码"
-git reset origin master
+git reset --hard .
 git clean -f
 
 # 拉取新代码
