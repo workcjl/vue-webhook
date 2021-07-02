@@ -6,11 +6,6 @@ WORK_DIR='/root/project/back'
 echo "进入工作目录$WORK_DIR"
 cd $WORK_DIR
 
-# 清除老代码
-echo "清除老代码"
-git reset --hard origin/master
-git clean -f
-
 # 拉取新代码
 echo "拉取新代码"
 git pull origin master
