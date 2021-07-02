@@ -17,7 +17,6 @@ router.post('/webhook', (ctx) => {
   })
   ctx.req.on('end', () => {
     const body = Buffer.concat(buffers)
-    console.log('body=>', body)
     const event = ctx.request.headers['x-github-event']
     const signature = ctx.request.headers['x-hub-signature']
     const delivery = ctx.request.headers['x-github-delivery']
@@ -29,7 +28,6 @@ router.post('/webhook', (ctx) => {
     }
     if (event === 'push') {
       const content = JSON.parse(body)
-      console.log('content=>', content)
       const child = spawn('sh', [`./${content.repository.name}.sh`])
       const buffers = []
       child.stdout.on('data', (buffer) => {
@@ -37,7 +35,6 @@ router.post('/webhook', (ctx) => {
       })
       child.stdout.on('end', (_) => {
         const log = JSON.parse(Buffer.concat(buffers))
-        console.log('logs=>', log)
       })
       console.log('true')
     }
