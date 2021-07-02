@@ -36,7 +36,7 @@ router.post('/webhook', (ctx) => {
         buffers.push(buffer)
       })
       child.stdout.on('end', (_) => {
-        const log = Buffer.concat(buffers)
+        const log = JSON.parse(Buffer.concat(buffers))
         console.log('logs=>', log)
       })
       console.log('true')
