@@ -6,11 +6,8 @@ const router = new Router()
 
 const PORT = 4000
 
-router.prefix('/api')
-router.get('/home', (ctx) => {
-  ctx.body = {
-    name: 'hello'
-  }
+router.post('/webhook', (ctx) => {
+  ctx.body = '成功案例！'
 })
 
 app.use(cors())
@@ -18,5 +15,5 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 app.listen(PORT, () => {
-  console.log(`服务启动在${PORT}`)
+  console.log(`webHook服务启动在${PORT}`)
 })
