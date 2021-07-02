@@ -30,7 +30,15 @@ router.post('/webhook', (ctx) => {
     if (event === 'push') {
       const content = JSON.parse(body)
       console.log('content=>', content)
-      // spawn('sh')
+      const child = spawn('sh', [`./${payload.repository.name}.sh`])
+      const buffers = []
+      child.stdout.on('data', (buffer) => {
+        buffers.push(buffer)
+      })
+      child.stdout.on('end', (_) => {
+        const log = Buffer.concat(buffers)
+        console.log('logs=>', log)
+      })
       console.log('true')
     }
   })
