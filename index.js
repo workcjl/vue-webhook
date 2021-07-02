@@ -2,6 +2,7 @@ const Koa = require('koa')
 const Router = require('@koa/router')
 const cors = require('@koa/cors')
 const crypto = require('crypto')
+const { spawn } = require('child_process')
 const app = new Koa()
 const router = new Router()
 
@@ -28,6 +29,9 @@ router.post('/webhook', (ctx) => {
     ok: true
   }
   if (event === 'push') {
+    const content = JSON.parse(body)
+    console.log('content=>', content)
+    // spawn('sh')
     console.log('true')
   }
 })
